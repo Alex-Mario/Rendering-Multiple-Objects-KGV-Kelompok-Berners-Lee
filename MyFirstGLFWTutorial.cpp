@@ -24,7 +24,7 @@ int main(int key, int scancode, int action, int mods) //main program
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(480, 480, "OOP Rendering Multiple Objects KGV Kelompok Berners Lee", NULL, NULL);
+    window = glfwCreateWindow(1024, 768, "OOP Rendering Multiple Objects KGV Kelompok Berners Lee", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -36,15 +36,63 @@ int main(int key, int scancode, int action, int mods) //main program
 
     GLenum err = glewInit();
 
-    Square s1;
-    s1.setScale(glm::vec3(0.7f, 0.5f, 1.0f));
-    s1.setColor(glm::vec4(0.5f, 0.8f, 1.0f, 1.0f));
+    Square s1; // kotak depan1
+    s1.setTranslation(-0.6f, 0.2f, 0.0f);
+    s1.setScale(glm::vec3(0.25f, 0.3f, 1.0f));
+    s1.setColor(glm::vec4(0.827f, 0.584f, 0.192f, 1.0f));
 
-    Square s2;
-    s2.setScale(glm::vec3(0.6f, 0.4f, 1.0f));
-    s2.setColor(glm::vec4(1.0f, 0.5f, 0.5f, 1.0f));
+   Square s2; // kotak depan2
+    s2.setTranslation(glm::vec3(-0.65f, 0.25f, 0.0f));
+    s2.setScale(glm::vec3(0.20f, 0.15f, 1.0f));
+    s2.setColor(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
+    Square s3; // kotak belakang
+    s3.setTranslation(glm::vec3(0.0f, 0.35f, 0.0f));
+    s3.setScale(glm::vec3(0.35f, 0.45f, 1.0f));
+    s3.setColor(glm::vec4(0.749f, 0.207f, 0.168f, 1.0f));
+   
+    Square s4; //ban1
+    s4.setTranslation(glm::vec3(-0.6f, -0.18f, 0.0f));
+    s4.setScale(glm::vec3(0.1f, 0.15f, 1.0f));
+    s4.setColor(glm::vec4(0.05f, 0.05f, 0.05f, 1.0f));
     
+    Square s5; //ban2
+    s5.setTranslation(glm::vec3(-0.17f, -0.18f, 0.0f));
+    s5.setScale(glm::vec3(0.1f, 0.15f, 1.0f));
+    s5.setColor(glm::vec4(0.05f, 0.05f, 0.05f, 1.0f));
+
+    Square s6; //ban3
+    s6.setTranslation(glm::vec3(0.19f, -0.18f, 0.0f));
+    s6.setScale(glm::vec3(0.1f, 0.15f, 1.0f));
+    s6.setColor(glm::vec4(0.05f, 0.05f, 0.05f, 1.0f));
+    
+    Square s7; //knalpot
+    s7.setTranslation(glm::vec3(0.39f, 0.05f, 0.0f));
+    s7.setScale(glm::vec3(0.04f, 0.03f, 1.0f));
+    s7.setColor(glm::vec4(0.501f, 0.501f, 0.501f, 1.0f));
+    
+    Square s8; //asap1
+    s8.setRotation(45.0f, glm::vec3(0.01f, 0.01f, 0.01f));
+    s8.setTranslation(glm::vec3(0.50f, -0.4f, 0.0f));
+    s8.setScale(glm::vec3(0.018f, 0.032f, 1.0f));
+    s8.setColor(glm::vec4(0.882f, 0.878f, 0.874f, 1.0f));
+
+    Square s9; //asap2
+    s9.setRotation(45.0f, glm::vec3(0.01f, 0.01f, 0.01f));
+    s9.setTranslation(glm::vec3(0.60f, -0.5f, 0.0f));
+    s9.setScale(glm::vec3(0.023f, 0.046f, 1.0f));
+    s9.setColor(glm::vec4(0.882f, 0.878f, 0.874f, 1.0f));
+
+    Square s10; //asap3
+    s10.setRotation(45.0f, glm::vec3(0.01f, 0.01f, 0.01f));
+    s10.setTranslation(glm::vec3(0.70f, -0.6f, 0.0f));
+    s10.setScale(glm::vec3(0.03f, 0.06f, 1.0f));
+    s10.setColor(glm::vec4(0.882f, 0.878f, 0.874f, 1.0f));
+
+    Square s11; //aspal
+    s11.setScale(glm::vec3(1.0f, 0.5f, 1.0f));
+    s11.setColor(glm::vec4(0.368f, 0.368f, 0.368f, 1.0f));
+
     unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
     unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     string vertexString = readFile("vertex.vert");
@@ -74,10 +122,16 @@ int main(int key, int scancode, int action, int mods) //main program
 
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(0.235f, 0.890f, 0.984f, 1.0f); // warna window biru langit
 
         glUseProgram(program);
 
         //glDrawArrays(GL_TRIANGLES,0,6);
+
+        glUniform4fv(uColor, 1, &s11.getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s11.getTransformationMat4x4()[0][0]);
+        s11.draw();
+
         glUniform4fv(uColor, 1, &s1.getColor()[0]);
         glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s1.getTransformationMat4x4()[0][0]);
         s1.draw();
@@ -85,6 +139,38 @@ int main(int key, int scancode, int action, int mods) //main program
         glUniform4fv(uColor, 1, &s2.getColor()[0]);
         glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s2.getTransformationMat4x4()[0][0]);
         s2.draw();
+       
+        glUniform4fv(uColor, 1, &s3.getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s3.getTransformationMat4x4()[0][0]);
+        s3.draw();
+        
+        glUniform4fv(uColor, 1, &s4.getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s4.getTransformationMat4x4()[0][0]);
+        s4.draw();
+        
+        glUniform4fv(uColor, 1, &s5.getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s5.getTransformationMat4x4()[0][0]);
+        s5.draw();
+
+        glUniform4fv(uColor, 1, &s6.getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s6.getTransformationMat4x4()[0][0]);
+        s6.draw();
+        
+        glUniform4fv(uColor, 1, &s7.getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s7.getTransformationMat4x4()[0][0]);
+        s7.draw();
+        
+        glUniform4fv(uColor, 1, &s8.getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s8.getTransformationMat4x4()[0][0]);
+        s8.draw();
+
+        glUniform4fv(uColor, 1, &s9.getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s9.getTransformationMat4x4()[0][0]);
+        s9.draw();
+
+        glUniform4fv(uColor, 1, &s10.getColor()[0]);
+        glUniformMatrix4fv(uMat4x4, 1, GL_FALSE, &s10.getTransformationMat4x4()[0][0]);
+        s10.draw();
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
