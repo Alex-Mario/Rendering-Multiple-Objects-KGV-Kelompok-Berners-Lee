@@ -1,0 +1,3 @@
+E:\Data Visual Studio Community\MyFirstGLFWTutorial\x64\Debug\MyFirstGLFWTutorial.exe
+E:\Data Visual Studio Community\UTS KGV Membuat Octagon\x64\Debug\MyFirstGLFWTutorial.exe
+E:\Data Visual Studio Community\Rendering Multiple Object\x64\Debug\MyFirstGLFWTutorial.exe
