@@ -21,6 +21,11 @@ void Square::setTranslation(glm::vec3 newTranslation)
 	transformationMat4x4 = glm::translate(transformationMat4x4, newTranslation);
 }
 
+void Square::setTranslation(float transX, float transY, float transZ)
+{
+    setTranslation(glm::vec3(transX, transY, transZ));
+}
+
 glm::mat4x4 Square::getTransformationMat4x4()
 {
     return transformationMat4x4;
@@ -34,6 +39,11 @@ void Square::setRotation(float angle, glm::vec3 axis)
 void Square::setScale(glm::vec3 newScale)
 {
 	transformationMat4x4 = glm::scale(transformationMat4x4, newScale);
+}
+
+void Square::setScale(float scaleX, float scaleY, float scaleZ)
+{
+    setScale(glm::vec3(scaleX, scaleY, scaleZ));
 }
 
 void Square::draw()
